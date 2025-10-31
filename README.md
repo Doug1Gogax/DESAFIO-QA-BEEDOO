@@ -1,86 +1,78 @@
-# Desafio QA Beedoo
+# DESAFIO QA BEEDOO 2025 - Análise Full Stack de Qualidade
 
-Este projeto contém testes automatizados usando Cypress para testes E2E e K6 para testes de performance.
+## Visão Geral do Projeto
 
-## 🛠️ Pré-requisitos
+Este projeto tem como objetivo principal a **validação da qualidade e confiabilidade** do módulo de cadastro e gerenciamento de cursos (AUT: [https://creative-sherbet-a51eac.netlify.app/](https://creative-sherbet-a51eac.netlify.app/)).
 
-- Node.js (versão 14 ou superior)
-- NPM ou Yarn
-- K6 instalado globalmente
+A estratégia foi dividida em três pilares, garantindo uma cobertura completa:
 
-## 📦 Instalação
+1.  **Documentação Manual/Funcional** (Casos de Teste, US e Relatórios de Bug) - _Foco da entrega do desafio._
+2.  **Testes Automatizados (Cypress)** - _Prova de conceito e validação de regras de negócio._
+3.  **Testes de Performance e Acessibilidade (K6/Lighthouse)** - _Análise técnica da qualidade._
 
-1. Clone o repositório:
-\`\`\`bash
-git clone [URL_DO_REPOSITORIO]
-cd desafio-beedoo-tests
-\`\`\`
+---
 
-2. Instale as dependências:
-\`\`\`bash
-npm install
-\`\`\`
+## Documentação Requerida: Relatório Funcional e Decisões
 
-## 🚀 Executando os Testes
+### 1. Matriz de Casos de Teste e Rastreabilidade (Google Sheets)
 
-### Testes E2E com Cypress
+Todos os cenários e Casos de Teste (sucesso e erro), escritos em **Passo-a-Passo** e abrangendo as USs de Cadastro, Listagem e Exclusão, estão documentados nesta planilha.
 
-Para abrir o Cypress em modo interativo:
-\`\`\`bash
-npm run test:cypress
-\`\`\`
+**PLANILHA COM CASOS DE TESTE (Google Sheets):**
+(https://docs.google.com/spreadsheets/d/1YDmSwZC7jOng7RAb_5HaNtHrF9VIssliTbjN7NgMI0w/edit?usp=sharing)
 
-Para executar os testes em modo headless:
-\`\`\`bash
-npm run test:cypress:headless
-\`\`\`
+### 2. Documentação e Decisões (Google Docs)
 
-### Testes de Performance com K6
+Este documento contém o detalhamento das User Stories (USs), o Plano de Teste Exploratório, **Relatórios de Bug (com sugestões de melhoria)** e a justificativa das decisões.
 
-Para executar os testes de performance:
-\`\`\`bash
-npm run test:k6
-\`\`\`
+**RELATÓRIO COMPLETO E USER STORIES:**
+(https://docs.google.com/document/d/1lFqjcxJv6mKFpXeEqrj5n0yJ09exC-2ge6gOjhncHfs/edit?tab=t.0)
 
-## 📁 Estrutura do Projeto
+**EVIDENCIA EM PDF RELATORIO Lighthouse/AXE:**
+(https://drive.google.com/file/d/1QDOa4b5NjamIWYD3dICdRV9T0r1wbLVP/view?usp=sharing)
 
-\`\`\`
-desafio-beedoo-tests/
-│
-├── cypress/
-│ ├── e2e/
-│ │ ├── cadastroCurso.cy.js      # Testes de cadastro de cursos
-│ │ └── validacoesUsabilidade.cy.js # Testes de usabilidade
-│ └── support/
-│     └── commands.js            # Comandos customizados do Cypress
-│
-├── k6/
-│ └── performance-test.js        # Testes de performance
-│
-├── cypress.config.js            # Configuração do Cypress
-├── package.json
-└── README.md
-\`\`\`
+### 3. Justificativa das Decisões (Requisito: Como foram criadas as USs)
 
-## 📋 Casos de Teste
+As USs foram definidas por **Engenharia Reversa** das funcionalidades, com foco na **Integridade de Dados e UX**. A decisão primária foi a criação de **CTs de Erro (Negativos)** para provar a hipótese de falha na aplicação. A alta incidência de bugs de validação forçou o foco em cenários que expõem:
 
-### Cypress (E2E)
-- Validação de campos obrigatórios
-- Cadastro de curso com dados válidos
-- Validação de número de vagas
-- Validação do ano de conclusão
-- Testes de usabilidade e interface
-- Validação de mensagens de sucesso e erro
+- **Quebra de Regra de Negócio:** Permitir datas ilógicas ou cadastro sem campos essenciais (Status: FALHOU).
+- **Problemas de UX:** Falta de confirmação na exclusão (CT-003.02) e feedback incorreto (mensagem de exclusão após cadastro).
 
-### K6 (Performance)
-- Teste de carga com rampa de usuários
-- Validação de tempo de resposta
-- Verificação de taxa de erro
-- Teste de estresse da aplicação
+---
 
-## 📊 Métricas de Performance
+## Testes Técnicos e Automação (Diferencial)
 
-Os testes de performance com K6 validam:
-- 95% das requisições devem completar em menos de 500ms
-- Taxa de erro menor que 1%
-- Capacidade de lidar com até 20 usuários simultâneos
+Para complementar a análise, foram utilizados os seguintes testes técnicos:
+
+| Ferramenta     | Objetivo                                                            | Resultado                                                     |
+| :------------- | :------------------------------------------------------------------ | :------------------------------------------------------------ |
+| **Cypress**    | Validação funcional automatizada de campos e fluxos críticos.       | Identificou a falha de validação de campos obrigatórios.      |
+| **Grafana K6** | Teste de carga com **10 VUs / 30s** para simular acesso simultâneo. | Tempo médio de resposta rápido, mas confirma a necessidade de |
+
+otimização de ativos. |
+| **Lighthouse/AXE** |Análise de Performance e Acessibilidade. |Pontuação de **89/100** em Acessibilidade (necessita ajuste de contraste e _meta viewport_). |
+
+### Estrutura e Execução dos Testes Automatizados
+
+O código dos testes automatizados e de performance está estruturado neste repositório.
+
+**Como Executar:**
+
+1.  `npm install`
+2.  `npx cypress open` (Para testes funcionais)
+3.  `k6 run k6/performance-test.js` (Para teste de carga)
+
+---
+
+## Evidências de Teste (MP4)
+
+Todos os testes funcionais, incluindo a reprodução dos bugs documentados na planilha, foram gravados.
+
+**PASTA COM EVIDÊNCIAS (Google Drive):**
+[INSIRA O LINK DA PASTA DO GOOGLE DRIVE AQUI]
+
+---
+
+Autor
+Douglas Willian
+_Quality Assurance (QAjr) | Automação | Testes Exploratórios_
