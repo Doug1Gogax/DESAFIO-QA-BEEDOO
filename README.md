@@ -69,7 +69,7 @@ O código dos testes automatizados e de performance está estruturado neste repo
 Todos os testes funcionais, incluindo a reprodução dos bugs documentados na planilha, foram gravados.
 
 **PASTA COM EVIDÊNCIAS (Google Drive):**
-[INSIRA O LINK DA PASTA DO GOOGLE DRIVE AQUI]
+
 
 ---
 
