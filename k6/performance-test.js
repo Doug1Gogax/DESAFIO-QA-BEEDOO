@@ -42,7 +42,7 @@ export default function () {
     'homepage loads in under 1s': (r) => r.timings.duration < 1000,
   });
 
-  // 2️⃣ Teste de POST (cadastro de curso)
+  
   const registerRes = http.post(`${BASE_URL}/api/cursos`, payload, params);
   check(registerRes, {
     'registration status is 200': (r) => r.status === 200,
